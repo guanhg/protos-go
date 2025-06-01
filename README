@@ -1,0 +1,19 @@
+Example showing how build go file from proto with bazel >= 8.2.0
+---
+# Hands On
+## 1. remove some files
+find ./protos -name "*.bazel" -exec rm -f {} \; && \
+rm -fr ./lib/*
+
+## 2. generate BUILD.bazel
+make gazelle
+
+## 3. generate go file
+make bazel
+
+## 4. go mod tidy
+go mod tidy
+
+## docker-bazel build. next step
+
+

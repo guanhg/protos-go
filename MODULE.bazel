@@ -1,0 +1,37 @@
+###############################################################################
+# Bazel now uses Bzlmod by default to manage external dependencies.
+# Please consider migrating your external dependencies from WORKSPACE to MODULE.bazel.
+#
+# For more details, please check https://github.com/bazelbuild/bazel/issues/18958
+###############################################################################
+module(name = "protos")
+
+bazel_dep(name = "rules_proto", version = "5.3.0-21.7", repo_name = "rules_proto")
+bazel_dep(name = "rules_go", version = "0.54.1", repo_name = "io_bazel_rules_go")
+bazel_dep(name = "gazelle", version = "0.35.0", repo_name = "bazel_gazelle")
+bazel_dep(name = "googleapis", version = "0.0.0-20240326-1c8d509c5")
+
+go_sdk = use_extension("@io_bazel_rules_go//go:extensions.bzl", "go_sdk")
+go_sdk.download(
+    name = "go_sdk",
+    version = "1.24.3",
+)
+use_repo(go_sdk, "go_sdk")
+
+go_deps = use_extension("@bazel_gazelle//:extensions.bzl", "go_deps")
+go_deps.from_file(go_mod = "//:go.mod")
+
+# darwin version
+# bazel_dep(name = "toolchains_llvm", version = "1.4.0")
+
+# # Configure and register the toolchain.
+# llvm = use_extension("@toolchains_llvm//toolchain/extensions:llvm.bzl", "llvm")
+# llvm.toolchain(
+#    llvm_version = "16.0.0",
+# )
+
+# use_repo(llvm, "llvm_toolchain")
+# # use_repo(llvm, "llvm_toolchain_llvm") # if you depend on specific tools in scripts
+
+# register_toolchains("@llvm_toolchain//:all")
+

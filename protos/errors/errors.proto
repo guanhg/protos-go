@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package errors;
+
+option go_package = "github.com/x/protos/lib/errors";
+
+import "protos/types/types.proto";
+
+message ErrorResponse {
+  int32 error_code = 1;
+  string error = 2;
+}
+
+service Error {
+  rpc GetError(NotificationLog) returns (ErrorResponse);
+}

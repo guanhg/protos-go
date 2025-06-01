@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package errors;
+
+option go_package = "github.com/x/protos/lib/types";
+
+enum NotificationType {
+  SMS = 0;
+  PUSH = 1;
+}
+
+message NotificationLog {
+  int64 user_osa_feedback_id = 1;          // 用户评价的 mysql id
+  uint64 user_id = 2;                      // 用户的 id
+  uint64 osa_id = 3;                       // 用户所在群的班主任的 id
+  int64 online_group_id = 4;               // 群的 mysql id
+  NotificationType notification_type = 5;  // 通知用户的方式
+  uint32 send_times = 6;                   // 第几次发送
+  uint32 send_days = 7;                    // 第几天发送
+  uint32 timestamp_secs = 8;               // 发送通知的时间
+}
