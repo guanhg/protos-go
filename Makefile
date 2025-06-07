@@ -2,6 +2,10 @@
 # Makefile for generating Go files from Proto
 ############################################################
 # generate BUILD.bazel file for project. bazel >= 8.2
+clean:
+	find ./protos -name "*.bazel" -exec rm -f {} \; && \
+	rm -fr ./lib/*
+
 gazelle:
 	bazel run //:gazelle && \
 	bazel clean
